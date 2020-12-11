@@ -1,0 +1,53 @@
+<ion-menu side="start" contentId="main">
+    <ng-container *ngIf='usuario !== null'>
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Usuario</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list class='text-center'>
+                <ion-item>
+                    <ion-icon name="mail" slot='start'></ion-icon>
+                    <ion-label> {{usuario.email}} </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+        <ion-footer>
+            <ion-toolbar>
+                <ion-button color='danger' expand='block' (click)='cerrarSesion()'>Cerrar Sesión</ion-button>
+            </ion-toolbar>
+        </ion-footer>
+    </ng-container>
+</ion-menu>
+<div *ngIf='usuario !== null' class='ion-page' id="main">
+    <ion-header class="header-home">
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-menu-button>
+                    <ion-icon name='person-circle-outline'></ion-icon>
+                </ion-menu-button>
+            </ion-buttons>
+            <ion-title>
+                Alarma Antirobo
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content [fullscreen]="true">
+        <div id="container">
+            <div class="responsive">
+                <div align="center">
+                    <p *ngFor='let value of ArrayValores'>x: {{value[0]}} -- y: {{value[1]}} -- z: {{value[2]}}</p>
+                </div>
+                <div><img class="imagen" src="../../../assets/ladron.png" alt=""></div>
+                <label>
+                    <input type="checkbox" [(ngModel)]="activo" (change)="cambioEstado()">
+                    <div>
+                    </div>
+                </label>
+                <div style="background-color: cornsilk;">
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

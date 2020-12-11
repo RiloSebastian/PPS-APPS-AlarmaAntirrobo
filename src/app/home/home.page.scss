@@ -1,0 +1,130 @@
+.imagen{
+  margin-bottom: 40px;
+  height: 200px;
+  width: 200px;
+  border:solid;
+  border-radius: 50%;
+  border-width: 3px;
+}
+
+@media screen and (orientation:landscape) { 
+  .imagen{
+    width: 50%;
+  }
+  .responsive{
+    display: flex;
+  }
+}
+
+
+#container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-content{
+  --ion-background-color: #A10B0B
+}
+
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+ion-header{
+  --ion-background-color:#901E1E;
+  --ion-text-color: white;
+}
+
+ion-footer{
+   --ion-background-color:#901E1E;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.tipografia{
+  font-size: x-large;
+}
+
+
+label {
+  display: block;
+  margin: auto;
+  position: relative;
+  input {
+    display: none;
+  }
+  
+  div {
+    display: block;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+    &:after {
+       border: solid;
+    border-width: 10px;
+      content: "";
+      position: absolute;
+      display: block;
+      height: 150px;
+      width: 150px;
+      left: 25px;
+      top: 2px;
+      border-radius: 50%;
+      background: #511D1D;
+      transition: .30s;
+    }
+  }
+    
+  input:checked ~ i {
+    top: 10px;
+    left: 86px;
+  }
+  
+  input:checked + div:after {
+    background: #FF5208;
+  }
+  
+  
+  &:hover {
+    cursor: pointer;
+  }
+  
+  &:focus, &:active {
+    outline: 0;
+  }
+}
