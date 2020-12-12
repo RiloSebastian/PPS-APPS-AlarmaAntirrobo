@@ -7,6 +7,7 @@ import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { timer } from 'rxjs';
 import { USUARIOS } from 'src/app/mock/usuarios-mock';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 
 @Component({
 	selector: 'app-home',
@@ -27,15 +28,18 @@ export class HomePage implements OnDestroy {
 	public accX;
 	public accY;
 	public accZ;
+	public splash: boolean = false;
 
 	constructor(private router: Router, public alertController: AlertController, private deviceMotion: DeviceMotion,
-		private flashlight: Flashlight, private vibration: Vibration, private auth: UsuarioService,) {
+		private flashlight: Flashlight, private vibration: Vibration, private auth: UsuarioService,private comp: ComplementosService) {
 		this.activo = false;
 	}
 
 	ngOnInit() {
+		this.splash = true;
 		this.sub = this.auth.usuario.subscribe(user => {
 			if (user !== null) {
+				this.splash = false;
 				this.usuario = user;
 				console.log(this.usuario);
 				this.audioIzq.src = '../../../assets/sonidos/alarmaIzq.mp3';
@@ -92,12 +96,9 @@ export class HomePage implements OnDestroy {
 				this.flashlight.switchOn();
 				this.audioVer.load();
 				this.audioVer.play();
-				timer(5000).subscribe(() => {
-					if (this.accY > 3) {
-						flag = false;
-						this.flashlight.switchOff();
-					}
-				});
+				setTimeout(() => {
+					this.flashlight.switchOff();
+				},5000);
 			}
 		});
 	}
@@ -106,10 +107,10 @@ export class HomePage implements OnDestroy {
 		const alert = await this.alertController.create({
 			header: 'Usuario',
 			message: this.usuario.email,
-			inputs: [{name: 'clave',type: 'number', placeholder: 'Contraseña'}],
+			inputs: [{ name: 'clave', type: 'number', placeholder: 'Contraseña' }],
 			buttons: [
-			{text: 'Cancel', role: 'cancel', cssClass: 'secondary', handler: () => this.activo = true},
-			{
+				{ text: 'Cancel', role: 'cancel', cssClass: 'secondary', handler: () => this.activo = true },
+				{
 					text: 'Ok',
 					handler: data => {
 						let i = this.arrAuxUsuarios.findIndex(x => x.clave == data.clave);
@@ -119,7 +120,7 @@ export class HomePage implements OnDestroy {
 						} else {
 							this.warning.load();
 							this.warning.play();
-							this.vibration.vibrate([500,500]);
+							this.vibration.vibrate([500, 500]);
 							this.activo = true;
 						}
 					}
@@ -131,6 +132,7 @@ export class HomePage implements OnDestroy {
 
 	public cerrarSesion() {
 		this.auth.logout().then(() => {
+			this.comp.playAudio('error');
 			this.router.navigate(['/']);
 		})
 	}

@@ -1,39 +1,12 @@
-<ion-menu side="start" contentId="main">
-    <ng-container *ngIf='usuario !== null'>
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>Usuario</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-list class='text-center'>
-                <ion-item>
-                    <ion-icon name="mail" slot='start'></ion-icon>
-                    <ion-label> {{usuario.email}} </ion-label>
-                </ion-item>
-            </ion-list>
-        </ion-content>
-        <ion-footer>
-            <ion-toolbar>
-                <ion-button color='danger' expand='block' (click)='cerrarSesion()'>Cerrar Sesión</ion-button>
-            </ion-toolbar>
-        </ion-footer>
-    </ng-container>
-</ion-menu>
-<div *ngIf='usuario !== null' class='ion-page' id="main">
+<div *ngIf='!splash' class='ion-page' id="main">
     <ion-header class="header-home">
-        <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-menu-button>
-                    <ion-icon name='person-circle-outline'></ion-icon>
-                </ion-menu-button>
-            </ion-buttons>
+        <ion-toolbar color='elemento'>
             <ion-title>
-                Alarma Antirobo
+                {{usuario.email}}
             </ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-content [fullscreen]="true">
+    <ion-content [fullscreen]="true" color='fondo'>
         <div id="container">
             <div class="responsive">
                 <div align="center">
@@ -50,4 +23,10 @@
             </div>
         </div>
     </ion-content>
+    <ion-footer>
+        <ion-toolbar color='elemento'>
+            <ion-button color='danger' expand='block' (click)='cerrarSesion()'>Cerrar Sesión</ion-button>
+        </ion-toolbar>
+    </ion-footer>
 </div>
+ <img *ngIf='splash' class='spinnerA' src="../../assets/logoMov.png">
